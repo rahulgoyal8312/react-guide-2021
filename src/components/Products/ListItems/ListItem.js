@@ -16,7 +16,7 @@ const ListItem = ({ data }) => {
                     </small>
                 </div>
                 <div className={"title"}>
-                    <h3>{title}</h3>
+                    <h3>{data.title}</h3>
                 </div>
             </div>
             <button className={"cart-add"} onClick={handleClick}>
