@@ -3,36 +3,7 @@ import ListItem from "./ListItems/ListItem"
 import axios from "axios"
 
 const Products = () => {
-    const [items, setItems] = useState([
-        {
-            id: 0,
-            title: "Title of this Item 1",
-            price: 450,
-            discountedPrice: 340,
-            thumbnail: "placeholder.png"
-        },
-        {
-            id: 1,
-            title: "Title of this Item 2",
-            price: 100,
-            discountedPrice: 80,
-            thumbnail: "placeholder.png"
-        },
-        {
-            id: 2,
-            title: "Title of this Item 3",
-            price: 100,
-            discountedPrice: 80,
-            thumbnail: "placeholder.png"
-        },
-        {
-            id: 3,
-            title: "Title of this Item 4",
-            price: 100,
-            discountedPrice: 80,
-            thumbnail: "placeholder.png"
-        }
-    ])
+    const [items, setItems] = useState([])
 
     useEffect(() => {
         // fetch(`https://react-guide-2021-default-rtdb.firebaseio.com/items.json`)
@@ -46,7 +17,14 @@ const Products = () => {
 
         axios.get('https://react-guide-2021-default-rtdb.firebaseio.com/items.json')
         .then(response => {
-            console.log(response)
+            const data = response.data
+            const transformedData = data.map((item, index) => {
+                return {
+                    ...item,
+                    id: index
+                }
+            })
+            setItems(transformedData)
         })
         .catch(error => {
             console.log(error)
