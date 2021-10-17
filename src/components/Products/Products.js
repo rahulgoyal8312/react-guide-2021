@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ListItem from "./ListItems/ListItem"
+import axios from "axios"
 
 const Products = () => {
     const [items, setItems] = useState([
@@ -32,6 +33,25 @@ const Products = () => {
             thumbnail: "placeholder.png"
         }
     ])
+
+    useEffect(() => {
+        // fetch(`https://react-guide-2021-default-rtdb.firebaseio.com/items.json`)
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log(data)
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // })
+
+        axios.get('https://react-guide-2021-default-rtdb.firebaseio.com/items.json')
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }, [])
 
     return (
         <div className={"product-list"}>
