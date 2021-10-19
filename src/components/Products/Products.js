@@ -6,29 +6,25 @@ const Products = () => {
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        // fetch(`https://react-guide-2021-default-rtdb.firebaseio.com/items.json`)
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log(data)
-        // })
-        // .catch(error => {
-        //     console.log(error)
-        // })
+        async function fetchItems() {
+            try {
+                const response = await axios.get('https://react-guide-2021-default-rtdb.firebaseio.com/items.json')
+                const data = response.data
+                const transformedData = data.map((item, index) => {
+                    return {
+                        ...item,
+                        id: index
+                    }
+                })
+                setItems(transformedData)   
+            } 
+            catch (error) {
+                console.log("Error: ", error)
+                alert("Some error occurred");
+            }
+        }
 
-        axios.get('https://react-guide-2021-default-rtdb.firebaseio.com/items.json')
-        .then(response => {
-            const data = response.data
-            const transformedData = data.map((item, index) => {
-                return {
-                    ...item,
-                    id: index
-                }
-            })
-            setItems(transformedData)
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        fetchItems();
     }, [])
 
     return (
