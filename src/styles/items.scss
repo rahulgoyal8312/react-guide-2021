@@ -37,6 +37,36 @@
             }
         }
     }
+
+    &__modal {
+        display: flex;
+        .img-wrap {
+            flex-basis: 40%;
+            min-width: 40%;
+        }
+        .meta {
+            flex-grow: 60%;
+            h3 {
+                margin-top: 12px;
+                margin-bottom: 4px;
+                opacity: 0.8;
+            }
+            p {
+                font-weight: 300;
+                color: grey;
+                font-family: Roboto;
+                font-size: 14px;
+            }
+        }
+
+        button.cart-add {
+            border-radius: 0px;
+        }
+        
+        .cart-addon {
+            justify-content: space-between;
+        }
+    }
 }
 
 
@@ -65,7 +95,11 @@ button.cart-add {
     display: flex;
     align-items: center;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-between;    
+    
+    &__modal {
+        margin-top: 8px;
+    }
 }
 
 .cart-addon {
