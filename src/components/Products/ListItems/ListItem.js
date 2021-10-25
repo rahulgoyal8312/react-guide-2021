@@ -2,6 +2,7 @@ import { Fragment, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import AddToCartIcon from "../../../assets/icons/add_cart.svg"
 import Modal from "../../UI/Modal"
+import { addItemHandler, removeItemHandler } from "../../../actions"
 
 const ListItem = ({ data }) => {
     // const [counter, setCounter] = useState(0)
@@ -11,23 +12,12 @@ const ListItem = ({ data }) => {
 
     const increaseCounterByOne = event => {
         event.stopPropagation()
-        dispatch({
-            type: "ADD_ITEM",
-            payload: {
-                item: data
-            }
-        })
+        dispatch(addItemHandler(data))
     }
 
     const decreaseCounterByOne = event => {
         event.stopPropagation()
-        dispatch({
-            type: "REMOVE_ITEM",
-            payload: {
-                id: data.id
-            }
-        })
-        
+        dispatch(removeItemHandler(data.id))
     }
 
     const handleModal = () => {
