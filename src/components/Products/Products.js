@@ -15,7 +15,6 @@ const Products = ({ onAddItem, onRemoveItem, eventState }) => {
                 const transformedData = data.map((item, index) => {
                     return {
                         ...item,
-                        quantity: 0,
                         id: index
                     }
                 })
@@ -73,7 +72,7 @@ const Products = ({ onAddItem, onRemoveItem, eventState }) => {
                 <ListItem data={items[1]}></ListItem> */}
                 {
                     items.map(item => {
-                        return (<ListItem onAdd={handleAddItem} onRemove={handleRemoveItem} key={item.id} data={item}/>)
+                        return (<ListItem key={item.id} data={item}/>)
                     })
                 }
                 {/* {[<ListItem data={item[0]}/>,<ListItem data={item[1]}/>,<ListItem data={item[3]}/>]} */}
