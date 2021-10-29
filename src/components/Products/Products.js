@@ -2,16 +2,35 @@ import { useEffect, useState } from "react"
 import ListItem from "./ListItems/ListItem"
 import axios from "axios"
 import Loader from "../UI/Loader"
+import { useHistory, useLocation, useParams } from "react-router-dom"
 
 const Products = () => {
     const [items, setItems] = useState([])
     const [loader, setLoader] = useState(true)
+    const params = useParams()
+    const history = useHistory()
+    const { search } = useLocation()
+    const queryParams = new URLSearchParams(search).get("search")
 
     useEffect(() => {
         async function fetchItems() {
             try {
-                const response = await axios.get('https://react-guide-2021-default-rtdb.firebaseio.com/items.json')
+                let slug = `items.json`
+                if(params.category) {
+                    slug = `items-${params.category}.json`
+                }
+                if(queryParams) {
+                    slug += `?search=${queryParams}`
+                }
+                // items-category-1.json
+                const response = await axios.get(`https://react-guide-2021-default-rtdb.firebaseio.com/${slug}`)
                 const data = response.data
+
+                if(!data) {
+                    handleNotFound();
+                    return;
+                }
+
                 const transformedData = data.map((item, index) => {
                     return {
                         ...item,
@@ -32,7 +51,16 @@ const Products = () => {
         }
 
         fetchItems();
-    }, [])
+
+        return () => {
+            setItems([])
+            setLoader(true)
+        }
+    }, [params.category, queryParams])
+
+    const handleNotFound = () => {
+        history.push("/404")
+    }
 
     return (
         <>
