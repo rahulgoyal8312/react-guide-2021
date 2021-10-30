@@ -1,7 +1,9 @@
+import { useHistory } from "react-router-dom"
 import Cart from "../Cart"
 import SearchBox from "../UI/Search"
 
 const Header = () => {
+    const history = useHistory()
     return (
         <header>
             <div className="nav-brand">
@@ -21,6 +23,7 @@ const Header = () => {
             <div className="searchBox-container">
                 <SearchBox/>
             </div>
+            <button className="login-btn" onClick={() => history.push("/login")}>Login</button>
             <div className="cart-container">
                 <Cart />
             </div>
