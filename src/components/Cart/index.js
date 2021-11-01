@@ -8,8 +8,8 @@ import { addItemHandler, clearCartHandler, removeItemHandler } from "../../actio
 const Cart = () => {
     const [showModal, setShowModal] = useState(false)
     const [orderModal, setOrderModal] = useState(false)
-    const items = useSelector(state => state.items)
-    const totalAmount = useSelector(state => state.totalAmount)
+    const items = useSelector(state => state.cart.items)
+    const totalAmount = useSelector(state => state.cart.totalAmount)
     const dispatch = useDispatch()
 
     const handleModal = () => {
