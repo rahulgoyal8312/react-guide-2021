@@ -15,6 +15,7 @@ export const signupWithEmailAndPassword = (details, callback) => {
                 type: 'SIGNUP',
                 payload: response.data
             })
+            localStorage.setItem("token", response.data.idToken)
             return callback(response.data)
         }
         catch (error) {
@@ -37,6 +38,35 @@ export const loginWithEmailAndPassword = (details, callback) => {
             dispatch({
                 type: 'LOGIN',
                 payload: response.data
+            })
+            localStorage.setItem("token", response.data.idToken)
+            return callback(response.data)
+        }
+        catch (error) {
+            return callback({
+                error: true,
+                response: error.response
+            })
+        }
+    }
+}
+
+export const checkIsLoggedIn = callback => {
+    return async(dispatch) => {
+        try {
+            let token = localStorage.getItem("token")
+            if(!token) {
+                return;
+            }
+            const response = await axios.post(`${BASE_URL}accounts:lookup?key=${API_KEY}`, {
+                idToken: token
+            })
+            dispatch({
+                type: 'LOGIN',
+                payload: {
+                    idToken: token,
+                    ...response.data
+                }
             })
             return callback(response.data)
         }
