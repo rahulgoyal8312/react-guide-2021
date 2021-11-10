@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    # runtime-versions
+    runtime-versions:
+      nodejs: 14
+
+  pre_build:
+    commands:
+    # commands to be executed
+    - echo "Installing Dependencies.."
+    - npm install
+
+  build:
+    commands:
+    # command for build
+    - echo Building..
+    - npm run build
+
+  post_build:
+    commands:
+    # command for uploading
+    - echo Uploading files in the s3 bucket..
+    - aws s3 sync build/ s3://amakart --delete
